@@ -48,5 +48,5 @@ def home():
 app.register_blueprint(user_route)
 app.register_blueprint(post_route)
 
-if __name__ == '__main__':
-    manager.run()
+#if __name__ == '__main__':
+#    manager.run()
