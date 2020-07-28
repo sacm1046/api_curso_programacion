@@ -24,8 +24,9 @@ class Post(db.Model):
     __tablename__ = 'posts'
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    user = db.relationship(User, backref=backref('children', cascade='all, delete'))
+    user = db.Column(db.String(50), nullable=False)
+    #user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    #user = db.relationship(User, backref=backref('children', cascade='all, delete'))
 
     def __repr__(self):
         return 'Score %r' % self.content
@@ -34,5 +35,6 @@ class Post(db.Model):
         return{
             'id': self.id,
             'content': self.content,
-            'user': self.user.serialize()
+            'user':self.user
+            #'user': self.user.serialize()
         }

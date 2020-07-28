@@ -20,14 +20,18 @@ def getpost(id=None):
 @post_route.route('/posts', methods=['POST'])
 def postpost():   
     content = request.json.get('content')   
-    user_id = request.json.get('user_id')
+    user = request.json.get('user')  
+    #user_id = request.json.get('user_id')
     if not content:
         return jsonify({"error": "Inserte su contenido"}), 422
-    if not user_id:
-        return jsonify({"error": "Inserte su id de usuario"}), 422 
+    if not user:
+        return jsonify({"error": "Inserte su usuario"}), 422
+    #if not user_id:
+    #    return jsonify({"error": "Inserte su id de usuario"}), 422 
     post = Post()
     post.content = content
-    post.user_id = user_id
+    post.user = user
+    #post.user_id = user_id
     db.session.add(post)
     db.session.commit()
     return jsonify(post.serialize()), 201
@@ -36,7 +40,7 @@ def postpost():
 def updatepost(id):
     if request.method == 'PUT':
         post = Post.query.get(id)            
-        post.content = request.json.get('name')
+        post.content = request.json.get('content')
         db.session.commit()
         return jsonify(post.serialize()), 201
 
