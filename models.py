@@ -25,6 +25,7 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text, nullable=False)
     user = db.Column(db.String(50), nullable=False)
+    image = db.Column(db.String(50), nullable=True)
     #user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     #user = db.relationship(User, backref=backref('children', cascade='all, delete'))
 
@@ -35,6 +36,7 @@ class Post(db.Model):
         return{
             'id': self.id,
             'content': self.content,
-            'user':self.user
+            'user':self.user,
+            'image':self.image
             #'user': self.user.serialize()
         }
