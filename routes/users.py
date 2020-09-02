@@ -10,7 +10,7 @@ bcrypt = Bcrypt()
 user_route = Blueprint('user_route', __name__)
 @user_route.route('/users', methods=['GET'])
 @user_route.route('/user/<int:id>', methods=['GET'])
-@jwt_required
+#@jwt_required
 def user(id=None):
     if request.method == 'GET':
         if id is not None:
@@ -43,7 +43,7 @@ def login():
             "user": user.serialize()
         }
         return jsonify(data), 200
-    else: 
+    else:
         return jsonify({"error": "Email or password is not correct"}), 401
 
 @user_route.route('/register', methods=['POST'])
@@ -54,7 +54,7 @@ def register():
     if not email:
         return jsonify({"error": "Email is required"}), 422
     if not fullname:
-        return jsonify({"error": "Fullname is required"}), 422             
+        return jsonify({"error": "Fullname is required"}), 422
     if not password:
         return jsonify({"error": "Password is required"}), 422
     user = User.query.filter_by(email=email).first()
@@ -134,7 +134,7 @@ def forget_password():
 def forget_password_confirm(token):
     password = request.json.get('password', None)
     if not password or password == '':
-        return jsonify({"msg": "You need to write your password"}), 422 
+        return jsonify({"msg": "You need to write your password"}), 422
     try:
         email = confirm_token(token)
     except:
